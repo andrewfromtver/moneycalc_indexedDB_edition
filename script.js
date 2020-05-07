@@ -193,12 +193,12 @@ const deleteOperation = (event) => {
     }
     /* -- Image pop-up -- */
     if (event.target.classList.contains('history__money')) {
-        outputInfo = dbOperation.filter(operation => operation.id !== target.dataset.id);
+        outputInfo = dbOperation.filter(operation => operation.time !== target.dataset.id);
         if (outputInfo.length == 0) {
             showImage(dbOperation[0].attachement);
         }
         else {
-            outputInfo = dbOperation.filter(operation => operation.id == target.dataset.id);
+            outputInfo = dbOperation.filter(operation => operation.time == target.dataset.id);
             showImage(outputInfo[0].attachement);
         }
     }

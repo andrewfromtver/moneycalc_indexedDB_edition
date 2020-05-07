@@ -98,7 +98,7 @@ const
         listItem.classList.add(className);
         listItem.innerHTML = `${operation.time}
         <br>${operation.description}
-        <span class="history__money" data-id="${operation.time}">${operation.amount} ₽</span>
+        <span class="history__money" data-id="${operation.id}">${operation.amount} ₽</span>
         <button class="history__delete" data-id="${operation.time}">X</button>`;
         historyList.append(listItem);
     };
@@ -193,12 +193,12 @@ const deleteOperation = (event) => {
     }
     /* -- Image pop-up -- */
     if (event.target.classList.contains('history__money')) {
-        outputInfo = dbOperation.filter(operation => operation.time !== target.dataset.id);
+        outputInfo = dbOperation.filter(operation => operation.id !== target.dataset.id);
         if (outputInfo.length == 0) {
             showImage(dbOperation[0].attachement);
         }
         else {
-            outputInfo = dbOperation.filter(operation => operation.time == target.dataset.id);
+            outputInfo = dbOperation.filter(operation => operation.id == target.dataset.id);
             showImage(outputInfo[0].attachement);
         }
     }

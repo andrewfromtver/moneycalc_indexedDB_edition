@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Online калькулятор доходов и расходов">
+    <meta name="og:title" property="og:title" content="Online калькулятор доходов и расходов">
+    <title>Online-Кошелек</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="popUp" onclick="hideImage()"></div>
+    <head>
+        <div class="container">
+            <h2 class="operation">Финансовый калькулятор</h2>
+        </div>
+    </head>
+    <main>
+        <div class="container">
+            <section class="total balance">
+                <header class="total__header">
+                    <h3>Баланс</h3>
+                <p class="total__balance">0 ₽</p>
+                </header>
+                <div class="total__main">
+                    <div class="total__main-item total__income">
+                        <h4>Доходы</h4>
+                        <p class="total__money total__money-income">
+                            +0 ₽
+                        </p>
+                    </div>
+                    <div class="total__main-item total__expenses">
+                        <h4>Расходы</h4>
+                        <p class="total__money total__money-expenses">
+                            -0 ₽
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="total info">
+                <header">
+                    <h2>Добавьте новую операцию</h2>
+                    <p class="total__money-expenses">
+                        Чтобы указать новую приходную операцию, введите сумму поступления,
+                        чтобы указать новую расходную операцию, введите число со знаком "-",
+                        чтобы приложить кассовый чек (или любое изображение) нажмите кнопку "Приложить кассовый чек"
+                    </p>
+                </header>
+                <div class="loader__placeholder">
+                    <div class="lds-ellipsis loader"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </section>
+            <section class="history">
+                <h3 class="operation__header operation">История операций :</h3>
+                <ul class="history__list"></ul>
+            </section>
+            <div class="error"></div>
+            <section class="operation">
+                <h3>Новая операция</h3>
+                <form id="form">
+                    <label>
+                        <input type="text" class="operation__fields operation__name" placeholder="Наименование операции"  maxlength="12">
+                    </label>
+                    <label>
+                        <input oninput="maxLengthCheck(this)" type = "number" maxlength = "9" step="0.01" class="operation__fields operation__amount" placeholder="Введите сумму">
+                    </label>
+                    <label>
+                        <div class=”button-wrap”>
+                            <label class ="operation__fields upload__button" for="upload">Приложить кассовый чек</label>
+                            <input id="upload" type="file" accept="image/*">
+                        <div>
+                    </label>
+                    <button type="submit" class="operation__add">Добавить операцию</button>
+                </form>
+            </section>
+        </div>
+    </main>
+    <div class="me">Andranik Sarkisyan 2020</div>
+    <div class="ya-share2" data-services="vkontakte,facebook,viber,whatsapp"></div>
+    <script src="./js/script.js"></script>
+    <script src="https://yastatic.net/share2/share.js"></script>
+</body>
+</html>

@@ -152,6 +152,25 @@ const
                     let request = openRequest.result.transaction("operations", "readwrite")
                         .objectStore("operations").add(indexedDbOperation);
                     request.onsuccess = function() {dbOperation.push(indexedDbOperation); init();};
+                    request.onerror = function() {
+                        let indexedDbOperation = {
+                            id: generateId(),
+                            description: operationNameValue,
+                            amount: +operationAmountValue,
+                            time: new Date().toLocaleString(),
+                            attachement: 'no_image.png'
+                        };
+                        let request = openRequest.result.transaction("operations", "readwrite")
+                            .objectStore("operations").add(indexedDbOperation);
+                        request.onsuccess = function() {
+                            dbOperation.push(indexedDbOperation);
+                            init();
+                            errorMesage.textContent = 'Кассовый чек не сохранен, размер прикладываемого файла превышает лимит локальной базы данных вашего браузера';
+                            errorMesage.style.padding = '15px';
+                            errorMesage.style.borderStyle = 'solid';
+                            console.log('Attacement lost, file is to big.');
+                        };
+                    };
                 };
             };
             } else {

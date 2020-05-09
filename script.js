@@ -46,7 +46,7 @@ const
         var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
         if(top > 0) {
             window.scrollBy(0,-100);
-            t = setTimeout('up()',50);
+            t = setTimeout('up()',25);
         }
         else clearTimeout(t);
         return false;
@@ -55,10 +55,8 @@ const
         var t;
         var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
         if(top == 0) {
-            window.scrollBy(0, 999999999);
-            t = setTimeout('down()',50);
+            window.scrollBy(0, 999999999999999);
         }
-        else clearTimeout(t);
         return false;
     };
 /* -- Show/hide info box -- */

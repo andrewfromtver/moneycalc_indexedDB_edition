@@ -46,7 +46,7 @@ const
         var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
         if(top > 0) {
             window.scrollBy(0,-100);
-            t = setTimeout('up()',25);
+            t = setTimeout('up()',5);
         }
         else clearTimeout(t);
         return false;
@@ -257,18 +257,24 @@ const
             else {
                 imgSrc = dbOperation[i].attachement;
             }
-            let data = "<div style='background-color: " + divColor + "; margin: 0 25vw; padding: 10px;'>" +
+            let data = "<div style='background-color: " + divColor + "; margin: 0 10vw; padding: 10px;'>" +
             "<div style='display: flex; justify-content: center;'>" +
-            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px 22px; width: 20vw; text-align: center; margin: 5px;'>" + dbOperation[i].time + '</p>' + "</div>" +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px 22px; width: 70vw; text-align: center; margin: 5px;'>" + dbOperation[i].time + '</p>' + "</div>" +
             "<div style='display: flex; justify-content: center;'>" +
-            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 10vw; text-align: center; margin: 10px;'>" + dbOperation[i].description + '</p>' +
-            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 10vw; text-align: center; margin: 10px;'>" + dbOperation[i].amount + '</p>' + "</div>" +
-            "<img src='" + imgSrc + "' style='width: 100%;'>" +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 32vw; text-align: center; margin: 10px;'>" + dbOperation[i].description + '</p>' +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 32vw; text-align: center; margin: 10px;'>" + dbOperation[i].amount + '</p>' + "</div>" +
+            "<img src='" + imgSrc + "' style='width: 72vw; cursor: pointer;' onclick='hideData()'>" +
             "</div>";
             outputData.push(data);
         }
-        outputData.push("<style type='text/css'>body{background-color: black;}</style>");
-        writeFile(`operations_history_${Date().toLocaleString()}.html`, JSON.stringify(outputData));
+       outputData.push("<style type='text/css'>body{background-color: black; opacity: 0.8;}</style>");
+//        writeFile(`operations_history_${Date().toLocaleString()}.html`, JSON.stringify(outputData));
+        document.querySelector('.dataOutput').innerHTML = outputData;
+        up();
+    };
+    const hideData = () => {
+        document.querySelector('.dataOutput').innerHTML = '';
+        down();
     };
 /* -- Listeners --*/
     form.addEventListener('submit', addOperation);

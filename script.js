@@ -10,7 +10,8 @@ const
     balance = document.querySelector('.balance'),
     info = document.querySelector('.info'),
     popUp = document.querySelector('.popUp'),
-    errorMesage = document.querySelector('.error');
+    errorMesage = document.querySelector('.error'),
+    downloadBtn = document.querySelector('.download__btn');
 /* -- Math -- */
     const round = (value, decimals) => {
         return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
@@ -63,11 +64,13 @@ const
             operationHeader.style.cssText = 'display:none;';
             balance.style.cssText = 'display:none;';
             info.style.cssText = '';
+            downloadBtn.style.cssText = 'display:none;';
         }
         else {
             operationHeader.style.cssText = '';
             balance.style.cssText = '';
             info.style.cssText = 'display:none;';
+            downloadBtn.style.cssText = '';
         }
     };
 /* -- Pop-up image control -- */
@@ -211,6 +214,23 @@ const
         errorMesage.style.padding = '';
         errorMesage.style.borderStyle = '';
     };
+/* -- File processing -- */
+const writeFile = (name, value) => {
+    var val = value;
+    if (value === undefined) {
+    val = "";
+    }
+    var download = document.createElement("a");
+    download.href = "data:text/plain;content-disposition=attachment;filename=file," + val;
+    download.download = name;
+    download.style.display = "none";
+    download.id = "download"; document.body.appendChild(download);
+    document.getElementById("download").click();
+    document.body.removeChild(download);
+}
+const download = () => {
+    writeFile(`operations_history_${Date().toLocaleString()}.txt`, `${JSON.stringify(dbOperation)}`);
+};
 /* -- Listeners --*/
     form.addEventListener('submit', addOperation);
     historyList.addEventListener('click', deleteOperation);

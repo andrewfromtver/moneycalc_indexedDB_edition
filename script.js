@@ -215,22 +215,22 @@ const
         errorMesage.style.borderStyle = '';
     };
 /* -- File processing -- */
-const writeFile = (name, value) => {
-    var val = value;
-    if (value === undefined) {
-    val = "";
+    const writeFile = (name, value) => {
+        var val = value;
+        if (value === undefined) {
+        val = "";
+        }
+        var download = document.createElement("a");
+        download.href = "data:text/plain;content-disposition=attachment;filename=file," + val;
+        download.download = name;
+        download.style.display = "none";
+        download.id = "download"; document.body.appendChild(download);
+        document.getElementById("download").click();
+        document.body.removeChild(download);
     }
-    var download = document.createElement("a");
-    download.href = "data:text/plain;content-disposition=attachment;filename=file," + val;
-    download.download = name;
-    download.style.display = "none";
-    download.id = "download"; document.body.appendChild(download);
-    document.getElementById("download").click();
-    document.body.removeChild(download);
-}
-const download = () => {
-    writeFile(`operations_history_${Date().toLocaleString()}.txt`, `${JSON.stringify(dbOperation)}`);
-};
+    const download = () => {
+        writeFile(`operations_history_${Date().toLocaleString()}.txt`, `${JSON.stringify(dbOperation)}`);
+    };
 /* -- Listeners --*/
     form.addEventListener('submit', addOperation);
     historyList.addEventListener('click', deleteOperation);

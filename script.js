@@ -130,7 +130,42 @@ const
             operationName.style.borderColor = '';
             operationAmount.style.borderColor = '';
             if (operationNameValue && operationAmountValue){
-                if (!operationAttachement) {
+                if (operationAttachement && operationAttachement.size < 9999999) {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(operationAttachement);
+                    reader.onload = function() {
+                        let indexedDbOperation = {
+                            id: generateId(),
+                            description: operationNameValue,
+                            amount: +operationAmountValue,
+                            time: new Date().toLocaleString(),
+                            attachement: reader.result
+                        };
+                        let request = openRequest.result.transaction("operations", "readwrite")
+                            .objectStore("operations").add(indexedDbOperation);
+                        request.onsuccess = function() {dbOperation.push(indexedDbOperation); init();};
+                        request.onerror = function() {
+                            let indexedDbOperation = {
+                                id: generateId(),
+                                description: operationNameValue,
+                                amount: +operationAmountValue,
+                                time: new Date().toLocaleString(),
+                                attachement: 'no_image.png'
+                            };
+                            let request = openRequest.result.transaction("operations", "readwrite")
+                                .objectStore("operations").add(indexedDbOperation);
+                            request.onsuccess = function() {
+                                dbOperation.push(indexedDbOperation);
+                                init();
+                                errorMesage.textContent = 'Кассовый чек не сохранен, размер прикладываемого файла превышает лимит локальной базы данных вашего браузера';
+                                errorMesage.style.padding = '15px';
+                                errorMesage.style.borderStyle = 'solid';
+                                console.log('Attacement lost, file is to big.');
+                            };
+                        };
+                    };
+                }
+                else {
                     let indexedDbOperation = {
                         id: generateId(),
                         description: operationNameValue,
@@ -140,44 +175,17 @@ const
                     };
                     let request = openRequest.result.transaction("operations", "readwrite")
                         .objectStore("operations").add(indexedDbOperation);
-                    request.onsuccess = function() {dbOperation.push(indexedDbOperation); init();};
-                }
-                else {
-                let reader = new FileReader();
-                reader.readAsDataURL(operationAttachement);
-                reader.onload = function() {
-                    let indexedDbOperation = {
-                        id: generateId(),
-                        description: operationNameValue,
-                        amount: +operationAmountValue,
-                        time: new Date().toLocaleString(),
-                        attachement: reader.result
-                    };
-                    let request = openRequest.result.transaction("operations", "readwrite")
-                        .objectStore("operations").add(indexedDbOperation);
-                    request.onsuccess = function() {dbOperation.push(indexedDbOperation); init();};
-                    request.onerror = function() {
-                        let indexedDbOperation = {
-                            id: generateId(),
-                            description: operationNameValue,
-                            amount: +operationAmountValue,
-                            time: new Date().toLocaleString(),
-                            attachement: 'no_image.png'
-                        };
-                        let request = openRequest.result.transaction("operations", "readwrite")
-                            .objectStore("operations").add(indexedDbOperation);
-                        request.onsuccess = function() {
-                            dbOperation.push(indexedDbOperation);
-                            init();
-                            errorMesage.textContent = 'Кассовый чек не сохранен, размер прикладываемого файла превышает лимит локальной базы данных вашего браузера';
-                            errorMesage.style.padding = '15px';
-                            errorMesage.style.borderStyle = 'solid';
-                            console.log('Attacement lost, file is to big.');
-                        };
+                    request.onsuccess = function() {
+                        dbOperation.push(indexedDbOperation);
+                        init();
+                        errorMesage.textContent = 'Кассовый чек не сохранен, размер прикладываемого файла превышает 8 MB';
+                        errorMesage.style.padding = '15px';
+                        errorMesage.style.borderStyle = 'solid';
+                        console.log('Attacement lost, file is to big.');
                     };
                 };
-            };
-            } else {
+            }
+            else {
                 if (!operationNameValue) operationName.style.borderColor = 'red';
                 if (!operationAmountValue) operationAmount.style.borderColor = 'red';
             }

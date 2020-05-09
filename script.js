@@ -37,6 +37,9 @@ const
             db.createObjectStore('operations', {keyPath: 'time'});
         }
     };
+    openRequest.onerror = function() {
+        console.log('123');
+    };
 /* -- Scroll control -- */
     const up = () => {
         var t;
@@ -229,7 +232,21 @@ const
         document.body.removeChild(download);
     }
     const download = () => {
-        writeFile(`operations_history_${Date().toLocaleString()}.txt`, `${JSON.stringify(dbOperation)}`);
+        let outputData = [];
+        let count = dbOperation.length
+        for (let i=0; i < count; i++) {
+            let data = "<div style='background-color: tomato;'>" +
+            "<div style='display: flex; justify-content: center;'>" +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 10px; padding: 5px 22px; width: 20vw; text-align: center; margin: 5px;'>" + dbOperation[i].time + '</p>' + "</div>" +
+            "<div style='display: flex; justify-content: center;'>" +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 10px; padding: 5px; width: 10vw; text-align: center; margin: 10px;'>" + dbOperation[i].description + '</p>' +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 10px; padding: 5px; width: 10vw; text-align: center; margin: 10px;'>" + dbOperation[i].amount + '</p>' + "</div>" +
+            "</div>" +
+            "<img src='" + dbOperation[i].attachement + "' style='width: 100%'>" +
+            '<br>';
+            outputData.push(data);
+        }
+        writeFile(`operations_history_${Date().toLocaleString()}.html`, JSON.stringify(outputData));
     };
 /* -- Listeners --*/
     form.addEventListener('submit', addOperation);

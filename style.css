@@ -1,6 +1,5 @@
 /* -- Google fonts API -- */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 /* -- Global styles -- */
 html {
     box-sizing: border-box;
@@ -14,6 +13,7 @@ html {
     box-sizing: inherit;
 }
 body {
+    opacity: 0.9;
     overflow-y: scroll;
     background-image: url("./background.jpg");
     background-repeat: no-repeat;
@@ -23,7 +23,7 @@ body {
     background-color: #fff;
     font-size: 16px;
     color: black;
-    min-height: 90vh;
+    min-height: 95vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,7 +64,6 @@ h1, h2, h3 {
 h4 {
     text-transform: uppercase;
 }
-
 /* -- Total block -- */
 .total {
     padding: 20px;
@@ -90,7 +89,6 @@ h4 {
     flex: 1;
     text-align: center;
     padding-top: 15px;
-
 }
 .total__main-item:first-child{
     border-right: 1px solid #ccc;
@@ -105,7 +103,10 @@ h4 {
 .total__money-income {
     color: rgb(52, 158, 52);
 }
-
+.help {
+    color: darkgreen;
+    text-align: justify;
+}
 /* -- History block -- */
 .history {
     margin-top: 20px;
@@ -225,7 +226,6 @@ input[type="file"] {
 .button-wrap {
   position: relative;
 }
-
 /* -- Popup -- */
 .popUp {
     display: flex;
@@ -247,12 +247,11 @@ input[type="file"] {
     border-radius: 10px;
     padding: 2px;
 }
-
 /* -- Footer -- */
 .me {
     margin-bottom: 20px;
     color: #242424;
-    background-color: #fff;
+    background-color: #eef;
     border-width: 2px;
     border-style: solid;
     border-color: #ccc;
@@ -263,7 +262,6 @@ input[type="file"] {
     text-align: center;
     margin-bottom: 20px;
 }
-
 /* -- Loader animation -- */
 .loader__placeholder{
     display: flex;

@@ -11,13 +11,16 @@ const
     info = document.querySelector('.info'),
     popUp = document.querySelector('.popUp'),
     errorMesage = document.querySelector('.error');
+/* -- Math -- */
+    const round = (value, decimals) => {
+        return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+    }
 /* -- Indexed DB -- */
     let dbOperation = [];
     let openRequest = indexedDB.open("store", 1);
     openRequest.onsuccess = function() {
-        let db = openRequest.result;
-        let transaction = db.transaction('operations', 'readonly').objectStore('operations');
-        transaction.getAll().onsuccess = function(event) {
+        openRequest.result.transaction('operations', 'readonly')
+            .objectStore('operations').getAll().onsuccess = function(event) {
                 if (event.srcElement.result.length > 0) {
                     let count = event.srcElement.result.length
                     for (let i=0; i < count; i++) {
@@ -26,7 +29,7 @@ const
                 }
                 init();
             }
-        }
+    };
     openRequest.onupgradeneeded = function() {
         let db = openRequest.result;
         if (!db.objectStoreNames.contains('operations')) {
@@ -109,9 +112,10 @@ const
         const resultExpenses = dbOperation
             .filter((item) => item.amount < 0)
             .reduce((result, item) => result + item.amount, 0);
-        totalMoneyIncome.textContent = resultIncome + ' ₽';
-        totalMoneyExpenses.textContent = resultExpenses + ' ₽';
-        totalBalance.textContent = (resultIncome + resultExpenses) + ' ₽';
+        totalMoneyIncome.textContent = round(resultIncome, 2) + ' ₽';
+        totalMoneyExpenses.textContent = round(resultExpenses, 2) + ' ₽';
+        let summ = resultIncome + resultExpenses;
+        totalBalance.textContent = round(summ, 2) + ' ₽';
     };
     const addOperation = (event) => {
         event.preventDefault();
@@ -123,10 +127,6 @@ const
             operationAmount.style.borderColor = '';
             if (operationNameValue && operationAmountValue){
                 if (!operationAttachement) {
-                    /* -- indexedDB push -- */
-                    let db = openRequest.result;
-                    let transaction = db.transaction("operations", "readwrite");
-                    let indexedDbOperations = transaction.objectStore("operations");
                     let indexedDbOperation = {
                         id: generateId(),
                         description: operationNameValue,
@@ -134,23 +134,14 @@ const
                         time: new Date().toLocaleString(),
                         attachement: 'no_image.png'
                     };
-                    let request = indexedDbOperations.add(indexedDbOperation);
-                    request.onsuccess = function() {
-                        dbOperation.push(indexedDbOperation);
-                        init();
-                    };
-                    request.onerror = function() {
-                        console.log("IndexedDB error", request.error);
-                    };
+                    let request = openRequest.result.transaction("operations", "readwrite")
+                        .objectStore("operations").add(indexedDbOperation);
+                    request.onsuccess = function() {dbOperation.push(indexedDbOperation); init();};
                 }
                 else {
                 let reader = new FileReader();
                 reader.readAsDataURL(operationAttachement);
                 reader.onload = function() {
-                    /* -- indexedDB push -- */
-                    let db = openRequest.result;
-                    let transaction = db.transaction("operations", "readwrite");
-                    let indexedDbOperations = transaction.objectStore("operations");
                     let indexedDbOperation = {
                         id: generateId(),
                         description: operationNameValue,
@@ -158,14 +149,9 @@ const
                         time: new Date().toLocaleString(),
                         attachement: reader.result
                     };
-                    let request = indexedDbOperations.add(indexedDbOperation);
-                    request.onsuccess = function() {
-                        dbOperation.push(indexedDbOperation);
-                        init();
-                    };
-                    request.onerror = function() {
-                        console.log("IndexedDB error", request.error);
-                    };
+                    let request = openRequest.result.transaction("operations", "readwrite")
+                        .objectStore("operations").add(indexedDbOperation);
+                    request.onsuccess = function() {dbOperation.push(indexedDbOperation); init();};
                 };
             };
             } else {
@@ -174,35 +160,28 @@ const
             }
             operationName.value = '';
             operationAmount.value = '';
-            document.getElementById("upload").value = "";;
+            document.getElementById("upload").value = "";
     };
-const deleteOperation = (event) => {
-    const target = event.target
-    if (event.target.classList.contains('history__delete')) {
-        dbOperation = dbOperation.filter(operation => operation.time !== target.dataset.id);
-        let openRequest = indexedDB.open("store", 1);
-        let delKey = target.dataset.id;
-        openRequest.onsuccess = function() {
-            let db = openRequest.result;
-            let transaction = db.transaction('operations', 'readwrite').objectStore('operations');
-            transaction.delete(delKey).onsuccess = function(event) {
-                    console.log(delKey);
-                }
+    const deleteOperation = (event) => {
+        const target = event.target
+        if (event.target.classList.contains('history__delete')) {
+            dbOperation = dbOperation.filter(operation => operation.time !== target.dataset.id);
+            let delKey = target.dataset.id;
+            openRequest.result.transaction('operations', 'readwrite')
+                .objectStore('operations').delete(delKey).onsuccess = function () {init();};
+        }
+        /* -- Image pop-up -- */
+        if (event.target.classList.contains('history__money')) {
+            outputInfo = dbOperation.filter(operation => operation.id !== target.dataset.id);
+            if (outputInfo.length == 0) {
+                showImage(dbOperation[0].attachement);
             }
-        init();
-    }
-    /* -- Image pop-up -- */
-    if (event.target.classList.contains('history__money')) {
-        outputInfo = dbOperation.filter(operation => operation.id !== target.dataset.id);
-        if (outputInfo.length == 0) {
-            showImage(dbOperation[0].attachement);
+            else {
+                outputInfo = dbOperation.filter(operation => operation.id == target.dataset.id);
+                showImage(outputInfo[0].attachement);
+            }
         }
-        else {
-            outputInfo = dbOperation.filter(operation => operation.id == target.dataset.id);
-            showImage(outputInfo[0].attachement);
-        }
-    }
-};
+    };
 /* -- Main init -- */
     const init = () => {
         historyList.textContent = '';

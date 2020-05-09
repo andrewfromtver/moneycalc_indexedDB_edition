@@ -256,7 +256,7 @@ input[type="file"] {
     border-style: solid;
     border-color: #ccc;
     border-radius: 10px;
-    padding: 2px;
+    padding: 2px 10px 2px 10px;
 }
 .ya-share2 {
     text-align: center;

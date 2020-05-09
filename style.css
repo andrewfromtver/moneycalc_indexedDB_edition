@@ -202,6 +202,24 @@ h4 {
     background-color: white;
     color: darkorange;
 }
+.operation__download {
+    background-color: rgb(51, 126, 51);
+    border-width: 2px;
+    border-style: solid;
+    border-color: darkgreen;
+    color: #fff;
+    border-radius: 10px;
+    width: 250px;
+    margin: 15px 0;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 3px;
+    text-align: center;
+}
+.operation__download:hover {
+    background-color: white;
+    color: rgb(51, 126, 51);
+}
 .upload__button {
     display: inline-block;
     padding: 8px 12px; 
@@ -256,7 +274,9 @@ input[type="file"] {
     border-style: solid;
     border-color: #ccc;
     border-radius: 10px;
-    padding: 2px 10px 2px 10px;
+    padding: 2px;
+    width: 250px;
+    text-align: center;
 }
 .ya-share2 {
     text-align: center;

@@ -257,13 +257,13 @@ const
             else {
                 imgSrc = dbOperation[i].attachement;
             }
-            let data = "<div style='background-color: " + divColor + "; margin: 0 10vw; padding: 10px;'>" +
+            let data = '.' + "<div style='background-color: " + divColor + "; margin: 0 5vw; padding: 10px;'>" +
             "<div style='display: flex; justify-content: center;'>" +
-            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px 22px; width: 70vw; text-align: center; margin: 5px;'>" + dbOperation[i].time + '</p>' + "</div>" +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px 22px; width: 90vw; text-align: center; margin: 5px;'>" + dbOperation[i].time + '</p>' + "</div>" +
             "<div style='display: flex; justify-content: center;'>" +
-            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 32vw; text-align: center; margin: 10px;'>" + dbOperation[i].description + '</p>' +
-            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 32vw; text-align: center; margin: 10px;'>" + dbOperation[i].amount + '</p>' + "</div>" +
-            "<img src='" + imgSrc + "' style='width: 72vw; cursor: pointer;' onclick='hideData()'>" +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 50vw; text-align: center; margin: 5px;'>" + dbOperation[i].description + '</p>' +
+            "<p style='color: white; background-color: gray; border-width: 2px; border-style: solid; border-color: black; border-radius: 1px; padding: 5px; width: 50vw; text-align: center; margin: 5px;'>" + dbOperation[i].amount + '</p>' + "</div>" +
+            "<img src='" + imgSrc + "' style='width: 90vw; cursor: pointer;' onclick='hideData()'>" +
             "</div>";
             outputData.push(data);
         }

@@ -14,7 +14,6 @@ html {
 }
 body {
     opacity: 0.9;
-    overflow-y: scroll;
     background-image: url("./background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;

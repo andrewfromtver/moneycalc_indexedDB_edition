@@ -84,12 +84,14 @@ const
         }
         popUp.appendChild(img);
         up();
+        document.body.style.overflow = 'hidden';
     };
     const hideImage = () => {
         if (popUp.childNodes.length > 0) {
             popUp.removeChild(popUp.firstChild);
         }
         down();
+        document.body.style.overflow = 'auto';
     };
 /* -- Id generator -- */
     const generateId = () => `operation_id:${Math.round(Math.random() * 1e8).toString(16)}`
@@ -266,6 +268,7 @@ const
             "<img src='" + imgSrc + "' style='width: 90vw; cursor: pointer;' onclick='hideData()'>" +
             "</div>";
             outputData.push(data);
+            document.body.style.overflow = 'hidden';
         }
        outputData.push("<style type='text/css'>body{background-color: black; opacity: 0.8;}</style>");
 //        writeFile(`operations_history_${Date().toLocaleString()}.html`, JSON.stringify(outputData));
@@ -275,6 +278,7 @@ const
     const hideData = () => {
         document.querySelector('.dataOutput').innerHTML = '';
         down();
+        document.body.style.overflow = 'auto';
     };
 /* -- Listeners --*/
     form.addEventListener('submit', addOperation);

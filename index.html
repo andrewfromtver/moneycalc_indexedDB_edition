@@ -11,6 +11,11 @@
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
 </head>
 <body>
+    <div class="waiter">
+        <div class="loader__placeholder">
+            <div class="lds-ellipsis loader"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
     <div class="dataOutput"></div>
     <div class="popUp" onclick="hideImage()"></div>
     <head>
@@ -53,9 +58,6 @@
                     </p>
                     <br>
                 </header>
-                <div class="loader__placeholder">
-                    <div class="lds-ellipsis loader"><div></div><div></div><div></div><div></div></div>
-                </div>
             </section>
             <section class="history">
                 <h3 class="operation__header operation">История операций :</h3>
@@ -85,9 +87,12 @@
             <button onclick="download()" class="operation__download">Показать историю операций</button>
         </div>
     </main>
-    <div class="me">Andranik Sarkisyan @ 2020</div>
-    <div class="ya-share2" data-services="vkontakte,facebook,viber,whatsapp"></div>
+    <div class="me">Andranik Sarkisyan # 2020</div>
+    <div class="ref">
+        <a href="https://vk.com/id_69_tver" target="blank"><img src="./vk.png"></a>
+        <a href="https://www.instagram.com/andrewfromtver/" target="blank"><img src="./insta.png"></a>
+        <a href="https://github.com/andrewfromtver" target="blank"><img src="./git.png" alt=""></a>
+    </div>
     <script src="./script.js"></script>
-    <script src="https://yastatic.net/share2/share.js"></script>
 </body>
 </html>

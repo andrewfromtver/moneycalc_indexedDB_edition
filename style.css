@@ -13,7 +13,7 @@ html {
     box-sizing: inherit;
 }
 body {
-    opacity: 0.9;
+    opacity: 0.95;
     background-image: url("./background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -51,10 +51,23 @@ p {
     margin: 0;
     text-align: center;
 }
+.waiter {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #444;
+    height: 100%;
+    width: 100%;
+    z-index: 999999999;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .container {
     margin: 0 auto;
     width: 95vw;
-    max-width: 600px;
+    max-width: 575px;
     min-width: 315px;
 }
 h1, h2, h3 {
@@ -278,7 +291,8 @@ input[type="file"] {
 }
 /* -- Footer -- */
 .me {
-    margin-bottom: 20px;
+    font-size: 15px;
+    margin-bottom: 15px;
     color: #242424;
     background-color: #eef;
     border-width: 2px;
@@ -289,9 +303,23 @@ input[type="file"] {
     width: 250px;
     text-align: center;
 }
-.ya-share2 {
-    text-align: center;
-    margin-bottom: 20px;
+.ref {
+display: flex;
+justify-content: center;
+}
+.ref > a > img {
+    width: 24px;
+    margin: 0 5px 20px 5px;
+    opacity: 0.7;
+    background-color: #fff;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.ref > a > img:hover {
+    opacity: 1;
 }
 /* -- Loader animation -- */
 .loader__placeholder{
@@ -311,7 +339,7 @@ input[type="file"] {
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #242424;
+    background: #fff;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {

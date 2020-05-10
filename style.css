@@ -23,7 +23,7 @@ body {
     background-color: #fff;
     font-size: 16px;
     color: black;
-    min-height: 95vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,7 +55,7 @@ p {
 .container {
     margin: 0 auto;
     width: 95vw;
-    max-width: 500px;
+    max-width: 600px;
     min-width: 315px;
 }
 h1, h2, h3 {
@@ -63,6 +63,15 @@ h1, h2, h3 {
 }
 h4 {
     text-transform: uppercase;
+}
+.dataOutput {
+    background-color: #242424;
+    position: absolute;
+    overflow-x: auto;
+    top: 12.5vh;
+    max-width: 95vw;
+    max-height: 75vh;
+    border-radius: 10px;
 }
 /* -- Total block -- */
 .total {
@@ -110,6 +119,9 @@ h4 {
 /* -- History block -- */
 .history {
     margin-top: 20px;
+}
+.history__list {
+    margin-bottom: 20px;
 }
 .history__item {
     align-items: center;
@@ -165,7 +177,6 @@ h4 {
 }
 /* -- Operation block -- */
 .operation {
-    margin-top: 20px;
     margin-bottom: 20px;
     background-color: #eef;
     border-radius: 25px;
@@ -250,13 +261,13 @@ input[type="file"] {
     justify-content: center;
     cursor: pointer;
     z-index: 100;
-    margin-bottom: 5vh;
+    margin-top: 20px;
 }
 .popUpImage {
     top: 0;
-    margin-top: 5vh;
+    margin-top: 12.5vh;
     position: absolute;
-    height: 80vh;
+    height: 75vh;
     width: 90vw;
     background-color: #eef;
     border-width: 2px;

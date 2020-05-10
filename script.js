@@ -37,8 +37,8 @@ const
             db.createObjectStore('operations', {keyPath: 'time'});
         }
     };
-    openRequest.onerror = function() {
-        console.log('123');
+    openRequest.onerror = function(event) {
+        console.log('IndexedDB error: ' + event.error);
     };
 /* -- Scroll control -- */
     const up = () => {
@@ -76,6 +76,7 @@ const
     };
 /* -- Pop-up image control -- */
     const showImage = (src) => {
+        waiterNoScroll(1000);
         img = document.createElement("img");
         img.src = src;
         img.className = 'popUpImage';
@@ -219,6 +220,7 @@ const
     };
 /* -- Main init -- */
     const init = () => {
+        waiter(1000);
         historyList.textContent = '';
         dbOperation.forEach(renderOperation)
         updateBalance();
@@ -229,6 +231,7 @@ const
     };
 /* -- File processing -- */
     const writeFile = (name, value) => {
+        waiter(3000);
         var val = value;
         if (value === undefined) {
         val = "";
@@ -242,6 +245,7 @@ const
         document.body.removeChild(download);
     }
     const download = () => {
+        waiterNoScroll(1000);
         let outputData = [];
         let count = dbOperation.length
         for (let i=0; i < count; i++) {
@@ -268,20 +272,37 @@ const
             "<img src='" + imgSrc + "' style='width: 90vw; cursor: pointer;' onclick='hideData()'>" +
             "</div>";
             outputData.push(data);
-            document.body.style.overflow = 'hidden';
         }
-       outputData.push("<style type='text/css'>body{background-color: black; opacity: 0.8;}</style>");
+        
+        outputData.push("<style type='text/css'>body{background-color: black; opacity: 0.8;}</style>");
 //        writeFile(`operations_history_${Date().toLocaleString()}.html`, JSON.stringify(outputData));
         document.querySelector('.dataOutput').innerHTML = outputData;
         up();
+        document.body.style.overflow = 'hidden';
     };
     const hideData = () => {
         document.querySelector('.dataOutput').innerHTML = '';
         down();
         document.body.style.overflow = 'auto';
     };
+/*-- Waiter control -- */
+    const waiter = (n) => {
+        document.body.style.overflow = 'hidden';
+        document.querySelector('.waiter').style.display = '';
+        function show () {
+            document.querySelector('.waiter').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+        setTimeout(show, n);
+    };
+    const waiterNoScroll = (n) => {
+        document.body.style.overflow = 'hidden';
+        document.querySelector('.waiter').style.display = '';
+        function show () {
+            document.querySelector('.waiter').style.display = 'none';
+        };
+        setTimeout(show, n);
+    };
 /* -- Listeners --*/
     form.addEventListener('submit', addOperation);
     historyList.addEventListener('click', deleteOperation);
-/* -- First launch header check -- */
-    operationHeaderCheck();

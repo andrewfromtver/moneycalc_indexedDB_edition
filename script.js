@@ -182,7 +182,7 @@ const
                         dbOperation.push(indexedDbOperation);
                         init();
                         if (operationAttachement) {
-                            errorMesage.textContent = 'Кассовый чек не сохранен, размер прикладываемого файла превышает 8,5 MB';
+                            errorMesage.textContent = 'Кассовый чек не сохранен, размер прикладываемого файла превышает 9,5 MB';
                             errorMesage.style.padding = '15px';
                             errorMesage.style.borderStyle = 'solid';
                             console.log('Attacement lost, file is to big.');

@@ -88,7 +88,7 @@ h4 {
 /* -- Total block -- */
 .total {
     padding: 20px;
-    background-color: #eef;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 25px;
 }
@@ -191,7 +191,7 @@ h4 {
 /* -- Operation block -- */
 .operation {
     margin-bottom: 20px;
-    background-color: #eef;
+    background-color: #fff;
     border-radius: 25px;
     padding: 15px 15px;
 }
@@ -294,7 +294,7 @@ input[type="file"] {
     font-size: 15px;
     margin-bottom: 15px;
     color: #242424;
-    background-color: #eef;
+    background-color: #fff;
     border-width: 2px;
     border-style: solid;
     border-color: #ccc;
